@@ -1,0 +1,23 @@
+/**
+ * @param {string} s
+ * @return {number}
+ * 91. Decode Ways
+ */
+var numDecodings = function(s) {
+    return helper(s, s.length)
+};
+
+
+function helper(data, k, memo={}) {
+    if(k in memo) return memo[k]
+    if(k == 0) return 1;
+    
+    let charIdx = data.length - k;
+    console.log(charIdx, data[charIdx])
+    if(data[charIdx] == 0) return 0;
+    
+    let res = helper(data, k - 1,memo) 
+    if( k >=2 && data.slice(charIdx, charIdx+2) <=26) res+= helper(data, k - 2,memo) 
+    memo[k] = res;
+    return res
+}
